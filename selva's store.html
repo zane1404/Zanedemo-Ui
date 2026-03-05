@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Selva's Store · Custom Covers</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background: #f8f9fc;
+      color: #1e293b;
+      padding-bottom: 70px; /* space for mobile nav */
+    }
+    /* mobile first */
+    .container {
+      width: 100%;
+      padding: 0 16px;
+    }
+    /* header */
+    .header {
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #2563eb;
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: #f97316; }
+    .header-icons {
+      display: flex;
+      gap: 18px;
+    }
+    .header-icons i {
+      font-size: 1.4rem;
+      color: #334155;
+    }
+    /* bottom navigation for mobile */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0 8px;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+      z-index: 10;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      transition: color 0.2s;
+    }
+    .nav-item i {
+      font-size: 1.4rem;
+      margin-bottom: 2px;
+    }
+    .nav-item.active {
+      color: #2563eb;
+      font-weight: 500;
+    }
+    /* sections */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 24px 0 12px;
+    }
+    /* hero banner */
+    .hero {
+      background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+      color: white;
+      border-radius: 28px;
+      padding: 28px 20px;
+      margin: 16px 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .hero h2 { font-size: 1.8rem; font-weight: 700; }
+    .hero p { font-size: 1rem; opacity: 0.9; }
+    .hero .btn {
+      background: white;
+      color: #1e3a8a;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 24px;
+      font-weight: 600;
+      align-self: flex-start;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    /* card grids */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.02);
+      text-align: center;
+    }
+    .feature-card img {
+      width: 100%;
+      border-radius: 16px;
+      aspect-ratio: 1/1.2;
+      object-fit: cover;
+      background: #eef2ff;
+    }
+    .feature-card h4 { margin: 8px 0 4px; font-size: 1rem; font-weight: 600; }
+    .feature-card p { color: #f97316; font-weight: 700; }
+    /* model chips */
+    .chip-scroll {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      padding: 8px 0 16px;
+      scrollbar-width: none;
+    }
+    .chip-scroll::-webkit-scrollbar { display: none; }
+    .chip {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 10px 22px;
+      white-space: nowrap;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .chip i { margin-right: 8px; color: #2563eb; }
+    /* how it works */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+    }
+    .step {
+      text-align: center;
+      flex: 1;
+    }
+    .step .circle {
+      background: #dbeafe;
+      width: 48px;
+      height: 48px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    /* reviews */
+    .review-card {
+      background: white;
+      border-radius: 20px;
+      padding: 16px;
+      margin-right: 12px;
+      min-width: 240px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+    }
+    .review-row {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      padding-bottom: 8px;
+    }
+    .stars { color: #fbbf24; margin: 8px 0; }
+
+    /* DESIGN PAGE (customizer) */
+    .customizer {
+      background: white;
+      border-radius: 28px 28px 0 0;
+      padding: 20px 16px;
+      margin-top: 16px;
+    }
+    .brand-model {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .brand-model select {
+      flex: 1;
+      padding: 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 18px;
+      font-size: 1rem;
+      background: white;
+    }
+    .preview-area {
+      background: #f1f5f9;
+      border-radius: 40px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .phone-frame {
+      width: 220px;
+      height: 380px;
+      background: #fff;
+      border-radius: 36px;
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+      position: relative;
+      overflow: hidden;
+      border: 3px solid #cbd5e1;
+    }
+    #coverCanvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .tool-btn {
+      background: #f1f5f9;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1 0 auto;
+      justify-content: center;
+    }
+    .tool-btn i { font-size: 1.2rem; }
+    .upload-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .upload-wrapper input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .text-controls {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+    .text-controls input {
+      flex: 2;
+      padding: 14px;
+      border-radius: 30px;
+      border: 1.5px solid #e2e8f0;
+      font-size: 1rem;
+    }
+    .text-controls button {
+      flex: 1;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+    .sticker-panel {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+    .sticker {
+      background: #f1f5f9;
+      border-radius: 40px;
+      padding: 8px 16px;
+      font-size: 1.5rem;
+    }
+    .add-to-cart {
+      background: #f97316;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 18px;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 16px 0;
+    }
+    /* Cart page */
+    .cart-item {
+      display: flex;
+      background: white;
+      border-radius: 20px;
+      padding: 12px;
+      margin-bottom: 12px;
+      align-items: center;
+      gap: 12px;
+    }
+    .cart-item img { width: 60px; height: 60px; border-radius: 12px; background: #ddd; }
+    .cart-item-details { flex: 1; }
+    .cart-item-title { font-weight: 600; }
+    .cart-item-price { color: #f97316; font-weight: 700; }
+    /* utility */
+    .hidden { display: none !important; }
+    .page { padding: 8px 16px 20px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">Selva's <span>Store</span></div>
+    <div class="header-icons">
+      <i class="fas fa-search"></i>
+      <i class="fas fa-shopping-cart" id="cartIcon"></i>
+    </div>
+  </header>
+
+  <!-- Main content: pages switching -->
+  <main id="mainContent">
+    <!-- HOME PAGE (default) -->
+    <div id="homePage" class="page">
+      <div class="container">
+        <!-- Hero Banner -->
+        <div class="hero">
+          <h2>Custom Covers<br>in 30 seconds</h2>
+          <p>Upload photo → Design → Order</p>
+          <button class="btn" id="startDesignBtn">Design now →</button>
+        </div>
+
+        <!-- Featured Designs -->
+        <h3 class="section-title">✨ Featured designs</h3>
+        <div class="card-grid">
+          <div class="feature-card"><img src="https://picsum.photos/200/250?random=1" alt=""><h4>Couple Special</h4><p>₹299</p></div>
+          <div class="feature-card"><img src="https://picsum.photos/200/250?random=2" alt=""><h4>Name Art</h4><p>₹249</p></div>
+          <div class="feature-card"><img src="https://picsum.photos/200/250?random=3" alt=""><h4>Pet Lover</h4><p>₹299</p></div>
+          <div class="feature-card"><img src="https://picsum.photos/200/250?random=4" alt=""><h4>Abstract</h4><p>₹199</p></div>
+        </div>
+
+        <!-- Popular Models (chips) -->
+        <h3 class="section-title">📱 Popular models</h3>
+        <div class="chip-scroll">
+          <div class="chip"><i class="fab fa-apple"></i> iPhone 15</div>
+          <div class="chip"><i class="fab fa-samsung"></i> S23 Ultra</div>
+          <div class="chip"><i class="fas fa-mobile-alt"></i> Redmi Note 12</div>
+          <div class="chip"><i class="fas fa-mobile-alt"></i> OnePlus 11</div>
+          <div class="chip"><i class="fas fa-mobile-alt"></i> Vivo V29</div>
+        </div>
+
+        <!-- How it works -->
+        <h3 class="section-title">⚡ How it works</h3>
+        <div class="steps">
+          <div class="step"><div class="circle">1</div><p>Upload</p></div>
+          <div class="step"><div class="circle">2</div><p>Design</p></div>
+          <div class="step"><div class="circle">3</div><p>Order</p></div>
+        </div>
+
+        <!-- Customer Reviews (horizontal scroll) -->
+        <h3 class="section-title">💬 Customer reviews</h3>
+        <div class="review-row">
+          <div class="review-card"><i class="fas fa-user-circle" style="font-size:2rem; color:#94a3b8;"></i> <div class="stars">★★★★★</div> <p>"Best quality, quick delivery!"</p></div>
+          <div class="review-card"><i class="fas fa-user-circle" style="font-size:2rem; color:#94a3b8;"></i> <div class="stars">★★★★☆</div> <p>"Loved the designer tool"</p></div>
+          <div class="review-card"><i class="fas fa-user-circle" style="font-size:2rem; color:#94a3b8;"></i> <div class="stars">★★★★★</div> <p>"Perfect gift for couple"</p></div>
+        </div>
+
+        <!-- Best Selling Products -->
+        <h3 class="section-title">🔥 Best selling</h3>
+        <div class="card-grid">
+          <div class="feature-card"><img src="https://picsum.photos/200/250?random=5" alt=""><h4>Glossy photo</h4><p>₹349</p></div>
+          <div class="feature-card"><img src="https://picsum.photos/200/250?random=6" alt=""><h4>Matte finish</h4><p>₹399</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESIGN PAGE (customizer) -->
+    <div id="designPage" class="page hidden">
+      <div class="customizer">
+        <h2 style="margin-bottom: 12px;">Customize your cover</h2>
+        <!-- Brand & Model -->
+        <div class="brand-model">
+          <select id="brandSelect">
+            <option value="apple">Apple</option>
+            <option value="samsung">Samsung</option>
+            <option value="xiaomi">Xiaomi</option>
+            <option value="oneplus">OnePlus</option>
+          </select>
+          <select id="modelSelect">
+            <option value="iphone15">iPhone 15</option>
+            <option value="iphone14">iPhone 14</option>
+            <option value="s23">S23</option>
+          </select>
+        </div>
+
+        <!-- Real-time preview (canvas) -->
+        <div class="preview-area">
+          <div class="phone-frame">
+            <canvas id="coverCanvas" width="280" height="480" style="width:100%; height:100%;"></canvas>
+          </div>
+        </div>
+
+        <!-- Upload / design tools -->
+        <div class="toolbar">
+          <div class="tool-btn upload-wrapper">
+            <i class="fas fa-image"></i> Upload
+            <input type="file" id="imageUpload" accept="image/*">
+          </div>
+          <button class="tool-btn" id="addTextBtn"><i class="fas fa-font"></i> Text</button>
+          <button class="tool-btn" id="addStickerBtn"><i class="fas fa-smile"></i> Sticker</button>
+        </div>
+
+        <!-- Text input (appears when text tool active) -->
+        <div id="textInputPanel" class="text-controls hidden">
+          <input type="text" id="customText" placeholder="Enter text">
+          <button id="applyText">Add</button>
+        </div>
+
+        <!-- Sticker quick picks -->
+        <div id="stickerPanel" class="sticker-panel hidden">
+          <span class="sticker">😎</span>
+          <span class="sticker">❤️</span>
+          <span class="sticker">🔥</span>
+          <span class="sticker">⭐</span>
+          <span class="sticker">🐶</span>
+          <span class="sticker">🌸</span>
+        </div>
+
+        <!-- Add to cart -->
+        <button class="add-to-cart" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Add to cart · ₹399</button>
+        <p style="text-align:center; color:#64748b;"><i class="fas fa-undo-alt"></i> Drag on preview to move (simulated)</p>
+      </div>
+    </div>
+
+    <!-- CART PAGE (simple) -->
+    <div id="cartPage" class="page hidden">
+      <div class="container">
+        <h2 class="section-title">Your Cart</h2>
+        <div id="cartItemsList">
+          <!-- dynamic via JS -->
+        </div>
+        <div style="background: white; border-radius: 24px; padding: 18px; margin-top: 16px;">
+          <p style="display: flex; justify-content: space-between;"><span>Total</span> <span id="cartTotal">₹399</span></p>
+          <button style="background:#2563eb; color:white; width:100%; padding:16px; border:none; border-radius:40px; font-size:1.2rem; font-weight:600; margin-top:12px;">Checkout (UPI/Card/COD)</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" data-page="home"><i class="fas fa-home"></i><span>Home</span></div>
+    <div class="nav-item" data-page="design"><i class="fas fa-paint-brush"></i><span>Design</span></div>
+    <div class="nav-item" data-page="cart"><i class="fas fa-shopping-bag"></i><span>Cart</span></div>
+    <div class="nav-item" data-page="profile"><i class="fas fa-user"></i><span>Profile</span></div>
+  </nav>
+
+  <script>
+    (function() {
+      // ---------- PAGE NAVIGATION ----------
+      const pages = {
+        home: document.getElementById('homePage'),
+        design: document.getElementById('designPage'),
+        cart: document.getElementById('cartPage')
+      };
+      const navItems = document.querySelectorAll('.nav-item');
+      const cartIcon = document.getElementById('cartIcon');
+
+      function showPage(pageId) {
+        Object.values(pages).forEach(p => p.classList.add('hidden'));
+        if (pages[pageId]) pages[pageId].classList.remove('hidden');
+        navItems.forEach(item => {
+          item.classList.remove('active');
+          if (item.dataset.page === pageId) item.classList.add('active');
+        });
+      }
+
+      navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          const page = item.dataset.page;
+          if (page === 'profile') {
+            alert("Login / Signup (Google, Facebook) – demo");
+            return;
+          }
+          showPage(page);
+        });
+      });
+
+      cartIcon.addEventListener('click', () => showPage('cart'));
+
+      // home page "Design now" button
+      document.getElementById('startDesignBtn').addEventListener('click', () => showPage('design'));
+
+      // ---------- CUSTOMIZER CANVAS (basic drawing) ----------
+      const canvas = document.getElementById('coverCanvas');
+      const ctx = canvas.getContext('2d');
+      let bgImage = null; // uploaded image
+      let elements = []; // store added texts/stickers as objects for redraw
+      // default background (light gray)
+      function redrawCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // draw base phone color
+        ctx.fillStyle = '#f0f2f5';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // draw uploaded image if exists
+        if (bgImage) {
+          ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+        }
+        // draw text/sticker elements (simplified)
+        elements.forEach(el => {
+          if (el.type === 'text') {
+            ctx.font = 'bold 28px Inter';
+            ctx.fillStyle = el.color || '#000';
+            ctx.fillText(el.content, el.x || 40, el.y || 100);
+          } else if (el.type === 'sticker') {
+            ctx.font = '40px Arial';
+            ctx.fillText(el.content, el.x || 80, el.y || 200);
+          }
+        });
+      }
+      redrawCanvas();
+
+      // Image upload
+      document.getElementById('imageUpload').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+              bgImage = img;
+              redrawCanvas();
+            };
+            img.src = event.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Text tool
+      const addTextBtn = document.getElementById('addTextBtn');
+      const textPanel = document.getElementById('textInputPanel');
+      const applyText = document.getElementById('applyText');
+      const customText = document.getElementById('customText');
+      addTextBtn.addEventListener('click', () => {
+        textPanel.classList.toggle('hidden');
+        // hide sticker panel if open
+        document.getElementById('stickerPanel').classList.add('hidden');
+      });
+      applyText.addEventListener('click', () => {
+        const txt = customText.value.trim();
+        if (txt) {
+          elements.push({ type: 'text', content: txt, x: 60, y: 140, color: '#2563eb' });
+          redrawCanvas();
+          customText.value = '';
+          textPanel.classList.add('hidden');
+        }
+      });
+
+      // Sticker panel
+      const stickerBtn = document.getElementById('addStickerBtn');
+      const stickerPanel = document.getElementById('stickerPanel');
+      stickerBtn.addEventListener('click', () => {
+        stickerPanel.classList.toggle('hidden');
+        textPanel.classList.add('hidden');
+      });
+      document.querySelectorAll('.sticker').forEach(sticker => {
+        sticker.addEventListener('click', () => {
+          elements.push({ type: 'sticker', content: sticker.textContent, x: 100, y: 250 });
+          redrawCanvas();
+          stickerPanel.classList.add('hidden');
+        });
+      });
+
+      // ---------- CART (simple local storage) ----------
+      let cart = JSON.parse(localStorage.getItem('selvaCart')) || [];
+
+      function updateCartDisplay() {
+        const cartDiv = document.getElementById('cartItemsList');
+        const totalSpan = document.getElementById('cartTotal');
+        if (!cartDiv) return;
+        if (cart.length === 0) {
+          cartDiv.innerHTML = '<p style="text-align:center; color:#94a3b8; padding:40px;">Your cart is empty</p>';
+          totalSpan.innerText = '₹0';
+          return;
+        }
+        let html = '';
+        let total = 0;
+        cart.forEach((item, index) => {
+          total += item.price;
+          html += `<div class="cart-item">
+            <img src="https://picsum.photos/60/60?random=${index}" alt="">
+            <div class="cart-item-details">
+              <div class="cart-item-title">${item.name}</div>
+              <div class="cart-item-price">₹${item.price}</div>
+            </div>
+            <i class="fas fa-trash" style="color:#ef4444;" data-index="${index}"></i>
+          </div>`;
+        });
+        cartDiv.innerHTML = html;
+        totalSpan.innerText = `₹${total}`;
+        // attach delete events
+        document.querySelectorAll('.fa-trash').forEach(icon => {
+          icon.addEventListener('click', (e) => {
+            const idx = e.target.dataset.index;
+            if (idx !== undefined) cart.splice(idx, 1);
+            localStorage.setItem('selvaCart', JSON.stringify(cart));
+            updateCartDisplay();
+          });
+        });
+      }
+
+      document.getElementById('addToCartBtn')?.addEventListener('click', () => {
+        // simulate adding current design
+        const brand = document.getElementById('brandSelect')?.value || 'custom';
+        const model = document.getElementById('modelSelect')?.value || 'case';
+        const item = {
+          name: `${brand} ${model} custom cover`,
+          price: 399,
+          id: Date.now()
+        };
+        cart.push(item);
+        localStorage.setItem('selvaCart', JSON.stringify(cart));
+        alert('Added to cart!');
+        updateCartDisplay();
+        showPage('cart');
+      });
+
+      // initial cart display
+      updateCartDisplay();
+
+      // ---------- drag simulation (simple click move) ----------
+      // For demo, we allow reposition by tapping on canvas (set last element position)
+      canvas.addEventListener('click', (e) => {
+        if (elements.length === 0) return;
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mouseX = (e.clientX - rect.left) * scaleX;
+        const mouseY = (e.clientY - rect.top) * scaleY;
+        // move last element to that position
+        const last = elements[elements.length-1];
+        if (last) {
+          last.x = mouseX - 20;
+          last.y = mouseY - 20;
+          redrawCanvas();
+        }
+      });
+
+      // make brand/model dynamic for demo
+      document.getElementById('brandSelect')?.addEventListener('change', function() {
+        const model = document.getElementById('modelSelect');
+        if (this.value === 'apple') {
+          model.innerHTML = '<option value="iphone15">iPhone 15</option><option value="iphone14">iPhone 14</option>';
+        } else if (this.value === 'samsung') {
+          model.innerHTML = '<option value="s23">S23</option><option value="s23u">S23 Ultra</option>';
+        } else {
+          model.innerHTML = '<option value="redmi">Redmi Note 12</option><option value="poco">Poco X5</option>';
+        }
+      });
+
+      // Ensure home is shown on load
+      showPage('home');
+    })();
+  </script>
+  <!-- dummy note for admin (no backend) -->
+  <div style="background:#e6f7ff; text-align:center; font-size:0.8rem; padding:8px; border-radius:30px; margin:16px; color:#0077b6;">
+    ⚙️ Admin (demo): manage brands/orders/reports via dashboard (not implemented)
+  </div>
+</body>
+</html>
